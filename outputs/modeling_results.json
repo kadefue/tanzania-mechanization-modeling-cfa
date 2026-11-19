@@ -1,0 +1,127 @@
+{
+  "sample": {
+    "n_total": 46493,
+    "n_analytical": 46489,
+    "waves": [
+      "2022/23",
+      "2023/24",
+      "2024/25"
+    ],
+    "wave_count": 3,
+    "n_by_wave": {
+      "2022/23": 13973,
+      "2023/24": 16595,
+      "2024/25": 15921
+    },
+    "n_regions": 31,
+    "n_corridors": 5,
+    "n_cohorts": 379,
+    "n_monte_carlo_draws": 1000
+  },
+  "epd": {
+    "national_mean": 2.054,
+    "national_median": 0.315,
+    "national_sd": 7.726,
+    "national_pct_lt_05": 62.8,
+    "national_pct_lt_15": 79.6,
+    "pct_lt_05_min": 41.8,
+    "pct_lt_05_max": 86.1,
+    "smallholder_pct_lt_05_min": 60.9,
+    "smallholder_pct_lt_05_max": 71.7,
+    "pct_lt_15_min": 60.3,
+    "pct_lt_15_max": 96.4,
+    "median_by_wave": {
+      "2022/23": 0.315,
+      "2023/24": 0.158,
+      "2024/25": 0.359
+    }
+  },
+  "power_decomposition": {
+    "custom_hire_4wt_share_min": 24.3,
+    "custom_hire_4wt_share_max": 81.4,
+    "custom_hire_commercial_min": 69.5,
+    "custom_hire_commercial_max": 81.4,
+    "owned_4wt_prevalence_min": 0.0,
+    "owned_4wt_prevalence_max": 0.8,
+    "custom_hire_reach_c2_northern": 27.8,
+    "custom_hire_reach_c1_southern_highlands": 22.8,
+    "draught_animal_share_c4_lake": 26.0
+  },
+  "reliability_mrdi": {
+    "downtime_power_loss_min": 10.9,
+    "downtime_power_loss_max": 31.2
+  },
+  "edaphic_tillage": {
+    "vertisol_draft_min": 65.0,
+    "vertisol_draft_max": 95.0,
+    "vertisol_field_resistance_range": "70\u2013110",
+    "vertisol_required_kw": 1.85,
+    "vertisol_observed_epd": 1.116,
+    "vertisol_deficit_kw": 1.304,
+    "vertisol_acute_deficit_pct": 86.8,
+    "vertisol_planted_ha": 8802
+  },
+  "seasonal_asr": {
+    "pooled_mean": 0.688,
+    "masika_mean": 0.656,
+    "vuli_mean": 0.722,
+    "abandonment_gap_pct": 12.8
+  },
+  "econometrics": {
+    "deaton_fe": {
+      "epd_linear_beta": 0.1405,
+      "epd_linear_se": 0.0129,
+      "epd_linear_p": 1.0450417150121253e-27,
+      "epd_linear_p_str": "< 0.001",
+      "epd_linear_stars": "***",
+      "epd_log_beta": 0.0638,
+      "epd_log_se": 0.0072,
+      "epd_log_stars": "***",
+      "draft_interaction_beta": -0.2364,
+      "draft_interaction_se": 0.0238,
+      "draft_interaction_stars": "***",
+      "draft_interaction_p_str": "< 0.001",
+      "share_2wt_beta": -0.2188,
+      "share_4wt_beta": 0.1558,
+      "mrdi_beta": -0.3579,
+      "ln_area_beta": 0.2005,
+      "n_cohort_obs": 379
+    },
+    "fractional_logit": {
+      "epd_hire2_ame": 0.003,
+      "epd_hire2_coef": 0.0282,
+      "epd_hire2_stars": "**",
+      "epd_hire2_p_str": "< 0.05",
+      "epd_x_vert_coef": -0.0206,
+      "epd_x_vert_stars": "*",
+      "epd_x_vert_ame": -0.0022,
+      "epd_x_vert_p_str": "< 0.10",
+      "mrdi_coef": 0.0781,
+      "ln_area_coef": 0.1184
+    },
+    "hansen_thresholds": {
+      "regime_1_vertisol_gamma": 0.2,
+      "regime_1_r2": 0.1197,
+      "regime_2_highland_gamma": 0.45,
+      "regime_2_r2": 0.1817,
+      "regime_3_upland_gamma": 0.2,
+      "regime_3_r2": 0.1391,
+      "tipping_point_min": 0.2,
+      "tipping_point_max": 0.45
+    },
+    "markov": {
+      "tier_1_persistence_pct": 80.8,
+      "tier_1_to_4_transition_pct": 0.0
+    }
+  },
+  "timeliness": {
+    "moisture_window_days": 14,
+    "queue_latency_days_min": 5,
+    "queue_latency_days_max": 8,
+    "farm_size_threshold_ha": 3.5,
+    "asr_below_threshold_parity_min": 0.88,
+    "asr_below_threshold_parity_max": 0.92,
+    "asr_above_threshold_hired": 0.65,
+    "asr_above_threshold_owned_min": 0.92
+  }
+}

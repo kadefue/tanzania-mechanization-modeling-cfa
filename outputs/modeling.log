@@ -1,0 +1,85 @@
+2026-11-17 18:34:50,560 | INFO    | ==============================================================================
+2026-11-17 18:34:50,560 | INFO    |   TANZANIA MECHANIZATION MODELING PIPELINE (2022-2025)
+2026-11-17 18:34:50,561 | INFO    | ==============================================================================
+2026-11-17 18:34:50,561 | INFO    | ==============================================================================
+2026-11-17 18:34:50,562 | INFO    |   STAGE 1: METADATA & DATA HARMONIZATION
+2026-11-17 18:34:50,562 | INFO    | ==============================================================================
+2026-11-17 18:34:50,842 | INFO    | Metadata dictionary: 371 variable entries, 253 value-label sets
+2026-11-17 18:34:50,849 | INFO    | [2022/23] 2023 -> 17 data files discovered
+2026-11-17 18:34:53,211 | INFO    | [2022/23] harmonised 13973 cultivating household holdings
+2026-11-17 18:34:53,216 | INFO    | [2023/24] 2024 -> 17 data files discovered
+2026-11-17 18:34:55,172 | INFO    | [2023/24] harmonised 16599 cultivating household holdings
+2026-11-17 18:34:55,178 | INFO    | [2024/25] 2025 -> 20 data files discovered
+2026-11-17 18:34:58,372 | INFO    | [2024/25] harmonised 15921 cultivating household holdings
+2026-11-17 18:34:58,382 | INFO    | Combined harmonized sample: 46493 household observations across 3 waves
+2026-11-17 18:34:58,383 | INFO    | ==============================================================================
+2026-11-17 18:34:58,383 | INFO    |   STAGE 2: STRUCTURAL ATTRIBUTES & IMPUTATION
+2026-11-17 18:34:58,384 | INFO    | ==============================================================================
+2026-11-17 18:34:59,688 | INFO    | ==============================================================================
+2026-11-17 18:34:59,688 | INFO    |   STAGE 3: ASABE/FAO MONTE CARLO POWER SIMULATION
+2026-11-17 18:34:59,689 | INFO    | ==============================================================================
+2026-11-17 18:35:10,535 | INFO    | Monte Carlo complete: 46489 holdings x 1000 draws; national weighted mean EPD = 2.054 kW/ha
+2026-11-17 18:35:10,538 | INFO    | ==============================================================================
+2026-11-17 18:35:10,538 | INFO    |   STAGE 4: AREA SURVIVAL RATIO ENGINE
+2026-11-17 18:35:10,539 | INFO    | ==============================================================================
+2026-11-17 18:35:10,657 | INFO    | ASR: weighted pooled mean = 0.688; Masika 0.656; Vuli 0.722
+2026-11-17 18:35:10,657 | INFO    | ==============================================================================
+2026-11-17 18:35:10,657 | INFO    |   STAGE 5: PSEUDO-PANEL & ECONOMETRIC SUITE
+2026-11-17 18:35:10,658 | INFO    | ==============================================================================
+2026-11-17 18:35:14,662 | INFO    | Pseudo-panel constructed: 379 cohort-wave observations (n_obs >= 10)
+2026-11-17 18:35:24,749 | INFO    | Household econometrics fitted: OLS, Fractional Logit, Interactions, Owned vs. Hired, Mundlak CRE, Log-EPD Suite
+2026-11-17 18:35:25,103 | INFO    | Regime 1 (Vertisol/Mbuga clay): Hansen Threshold gamma* = 0.20 kW/ha (R^2 = 0.1197)
+2026-11-17 18:35:26,899 | INFO    | Regime 2 (Highland loam): Hansen Threshold gamma* = 0.45 kW/ha (R^2 = 0.1817)
+2026-11-17 18:35:28,888 | INFO    | Regime 3 (Upland sandy-loam): Hansen Threshold gamma* = 0.20 kW/ha (R^2 = 0.1391)
+2026-11-17 18:35:28,889 | INFO    | ==============================================================================
+2026-11-17 18:35:28,889 | INFO    |   STAGE 6: GENERATING 9 PUBLICATION TABLES
+2026-11-17 18:35:28,889 | INFO    | ==============================================================================
+2026-11-17 18:35:28,889 | INFO    | ==============================================================================
+2026-11-17 18:35:28,890 | INFO    |   GENERATING 9 PUBLICATION TABLES (CSV, TEX, MD)
+2026-11-17 18:35:28,890 | INFO    | ==============================================================================
+2026-11-17 18:35:29,143 | INFO    | Exported table table_00_schema_harmonization_audit (.csv, .tex, .md)
+2026-11-17 18:35:29,345 | INFO    | Exported table table_01_sample_mechanization_inventory (.csv, .tex, .md)
+2026-11-17 18:35:29,588 | INFO    | Exported table table_02_stochastic_epd_distributions (.csv, .tex, .md)
+2026-11-17 18:35:29,805 | INFO    | Exported table table_03_power_source_decomposition (.csv, .tex, .md)
+2026-11-17 18:35:29,969 | INFO    | Exported table table_04_machinery_reliability_downtime (.csv, .tex, .md)
+2026-11-17 18:35:30,099 | INFO    | Exported table table_05_edaphic_draft_tillage_deficit (.csv, .tex, .md)
+2026-11-17 18:35:30,436 | INFO    | Exported table table_06_seasonal_asr_masika_vuli (.csv, .tex, .md)
+2026-11-17 18:35:30,509 | INFO    | Exported table table_07_pseudopanel_cohort_regressions (.csv, .tex, .md)
+2026-11-17 18:35:30,583 | INFO    | Exported table table_08_fractional_logit_asr_models (.csv, .tex, .md)
+2026-11-17 18:35:30,672 | INFO    | Exported table table_09_threshold_transition_matrix (.csv, .tex, .md)
+2026-11-17 18:35:30,673 | INFO    | All 9 publication tables successfully exported to /home/kadefue/Tanzania Mechanization Modeling/outputs/tables
+2026-11-17 18:35:30,675 | INFO    | ==============================================================================
+2026-11-17 18:35:30,675 | INFO    |   STAGE 6b: EXPORTING COMPREHENSIVE MODELING RESULTS JSON
+2026-11-17 18:35:30,676 | INFO    | ==============================================================================
+2026-11-17 18:35:31,422 | INFO    | Exported comprehensive modeling results JSON to /home/kadefue/Tanzania Mechanization Modeling/outputs/modeling_results.json
+2026-11-17 18:35:31,424 | INFO    | ==============================================================================
+2026-11-17 18:35:31,424 | INFO    |   STAGE 7: RENDERING 8 PUBLICATION FIGURES
+2026-11-17 18:35:31,425 | INFO    | ==============================================================================
+2026-11-17 18:35:31,425 | INFO    | ==============================================================================
+2026-11-17 18:35:31,425 | INFO    |   RENDERING 8 HIGH-RESOLUTION PUBLICATION FIGURES
+2026-11-17 18:35:31,425 | INFO    | ==============================================================================
+2026-11-17 18:35:42,422 | INFO    | Exported figure fig_01_monte_carlo_epd_raincloud (.png 600 DPI, .pdf)
+2026-11-17 18:35:49,331 | INFO    | Exported figure fig_02_power_stack_transition_alluvial (.png 600 DPI, .pdf)
+2026-11-17 18:35:55,889 | INFO    | Exported figure fig_03_edaphic_draft_vs_asr_response (.png 600 DPI, .pdf)
+2026-11-17 18:36:04,547 | INFO    | Exported figure fig_04_masika_vs_vuli_survival_gap (.png 600 DPI, .pdf)
+2026-11-17 18:36:12,909 | INFO    | Exported figure fig_05_pseudopanel_cohort_trajectories (.png 600 DPI, .pdf)
+2026-11-17 18:36:22,497 | INFO    | Exported figure fig_06_owned_vs_hired_efficiency_frontier (.png 600 DPI, .pdf)
+2026-11-17 18:36:28,335 | INFO    | Exported figure fig_09_engineering_capacity_reliability_frontier (.png 600 DPI, .pdf)
+2026-11-17 18:36:32,352 | INFO    | Exported figure fig_07_econometric_forest_marginal_effects (.png 600 DPI, .pdf)
+2026-11-17 18:36:36,659 | INFO    | Exported figure fig_08_monte_carlo_sensitivity_tornado (.png 600 DPI, .pdf)
+2026-11-17 18:36:36,660 | INFO    | All 8 publication figures rendered at 600 DPI in /home/kadefue/Tanzania Mechanization Modeling/outputs/figures
+2026-11-17 18:36:36,660 | INFO    | ==============================================================================
+2026-11-17 18:36:36,661 | INFO    |   STAGE 8: RENDERING 4 PUBLICATION CARTOGRAPHIC MAPS
+2026-11-17 18:36:36,661 | INFO    | ==============================================================================
+2026-11-17 18:36:36,661 | INFO    | ==============================================================================
+2026-11-17 18:36:36,661 | INFO    |   RENDERING 4 HIGH-RESOLUTION CARTOGRAPHIC MAPS (600 DPI PNG & PDF)
+2026-11-17 18:36:36,661 | INFO    | ==============================================================================
+2026-11-17 18:36:51,802 | INFO    | Exported map map_01_effective_power_density_evolution (.png 600 DPI, .pdf)
+2026-11-17 18:36:56,850 | INFO    | Exported map map_02_dominant_mechanization_typology (.png 600 DPI, .pdf)
+2026-11-17 18:37:01,302 | INFO    | Exported map map_03_bivariate_edaphic_power_deficit (.png 600 DPI, .pdf)
+2026-11-17 18:37:08,196 | INFO    | Exported map map_04_area_survival_ratio_hotspots (.png 600 DPI, .pdf)
+2026-11-17 18:37:08,197 | INFO    | All 4 cartographic maps successfully rendered in /home/kadefue/Tanzania Mechanization Modeling/outputs/maps
+2026-11-17 18:37:08,197 | INFO    | ==============================================================================
+2026-11-17 18:37:08,197 | INFO    |   FINAL VERIFICATION GATE
+2026-11-17 18:37:08,198 | INFO    | ==============================================================================
+2026-11-17 18:37:08,203 | INFO    | Pipeline executed successfully with ZERO unhandled exceptions in 137.6 seconds.

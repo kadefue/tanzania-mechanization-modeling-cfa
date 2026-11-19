@@ -1,0 +1,14 @@
+### Papke-Wooldridge (1996) Fractional Logit Models and Average Marginal Effects on ASR
+
+| Covariate     | Base Model Coef   | Base Model AME   | Interaction Model Coef   | Interaction Model AME   | Hired vs Owned Model Coef   | Hired vs Owned Model AME   |
+|---------------|-------------------|------------------|--------------------------|-------------------------|-----------------------------|----------------------------|
+| epd_w         | 0.0051            | 0.0005           | 0.0000                   | 0.0000                  | -                           | -                          |
+| epd_x_vert    | -                 | -                | -0.0206*                 | -0.0022                 | -                           | -                          |
+| epd_ox_w      | -                 | -                | -                        | -                       | 0.0143                      | 0.0015                     |
+| epd_ownmech_w | -                 | -                | -                        | -                       | 0.0067                      | 0.0007                     |
+| epd_hire4_w   | -                 | -                | -                        | -                       | 0.0026                      | 0.0003                     |
+| epd_hire2_w   | -                 | -                | -                        | -                       | 0.0282**                    | 0.0030                     |
+| share_2wt     | -0.0109           | -0.0012          | 0.0073                   | 0.0008                  | -                           | -                          |
+| share_4wt     | 0.0522            | 0.0055           | 0.0614                   | 0.0065                  | -                           | -                          |
+| mrdi_f        | 0.0813            | 0.0086           | 0.0781                   | 0.0083                  | 0.0874                      | 0.0092                     |
+| ln_area       | 0.1206***         | 0.0127           | 0.1184***                | 0.0125                  | 0.1238***                   | 0.0131                     |

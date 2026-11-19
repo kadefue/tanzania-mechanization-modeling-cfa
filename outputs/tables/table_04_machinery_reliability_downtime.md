@@ -1,0 +1,9 @@
+### Agricultural Machinery Operational Readiness Index (MRDI) and Mechanical Downtime Power Losses
+
+| Corridor                    |   MRDI 4WT |   MRDI 2WT |   MRDI Draught Oxen |   Active Owned Power (kW/ha) |   Dormant/Broken Power (kW/ha) |   Downtime Power Loss (%) |
+|-----------------------------|------------|------------|---------------------|------------------------------|--------------------------------|---------------------------|
+| C1 Southern Highlands 4WT   |      0.723 |      0.646 |               0.939 |                        0.404 |                          0.049 |                      10.9 |
+| C2 Northern Commercial 4WT  |      0.818 |      0.764 |               0.935 |                        0.604 |                          0.076 |                      11.2 |
+| C3 Lowland Paddy 2WT        |      0.506 |      0.716 |               0.927 |                        0.222 |                          0.068 |                      23.6 |
+| C4 Central-Western DAP      |      0.825 |      0.727 |               0.943 |                        0.362 |                          0.089 |                      19.6 |
+| C5 Hand-Hoe Coastal/Insular |      0.024 |      0.469 |               0.935 |                        0.083 |                          0.037 |                      31.2 |
