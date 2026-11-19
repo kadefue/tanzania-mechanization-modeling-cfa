@@ -63,36 +63,61 @@ Coupling ASABE engineering simulations with microeconometric pseudo-panels demon
 
 ## Theoretical & Mathematical Formulations
 
-### 1. Stochastic Farm Power Density ($\text{EPD}$)
+### 1. Stochastic Farm Power Density (EPD)
 
-Total effective power available on holding $i$ per unit effective cultivated area $A_{\text{eff},i} = \max(A_i, 0.05\ \text{ha})$ is modeled as a 1,000-draw Monte Carlo simulation across four energy tiers:
+For each cultivating holding $i$ and Monte Carlo draw $s \in \{1, \dots, 1000\}$, Effective Power Density ($\text{EPD}_i^{(s)}$, in $\text{kW}\cdot\text{ha}^{-1}$) is defined as total operational motive power divided by effective cultivated area $A_{\text{eff},i} = \max(A_i, 0.05\ \text{ha})$:
 
-$$\text{EPD}_{i} = \frac{1}{A_{\text{eff},i}} \left[ P_{\text{hum},i} + P_{\text{ox},i} + P_{\text{mech,own},i} + P_{\text{mech,hire},i} \right]$$
+$$
+\text{EPD}_{i}^{(s)} = \frac{1}{A_{\text{eff},i}} \Big[ P_{\text{hum},i} + P_{\text{ox},i}^{(s)} + P_{\text{mech,own},i}^{(s)} + P_{\text{mech,hire},i}^{(s)} \Big] \tag{1}
+$$
 
-#### Component Distributions, Efficiencies ($\eta$), and Hiring Shares ($\phi$):
-1. **Human Agricultural Labor ($P_{\text{hum},i}$):**
-   $$P_{\text{hum},i} = N_{\text{labor},i} \times \bar{P}_{\text{human}} \times \eta_{\text{human}}$$
-   where $N_{\text{labor},i} \ge 1$ is active agricultural working adults (15–64 years), $\bar{P}_{\text{human}} = 0.075\ \text{kW}$, and $\eta_{\text{human}} = 0.85$.
+#### Human Agricultural Labor ($P_{\text{hum},i}$)
 
-2. **Draught Animal Power ($P_{\text{ox},i}$):**
-   $$P_{\text{ox},i} = N_{\text{ox,working},i} \times P_{\text{ox,pair}} \times \eta_{\text{ox}}$$
-   where $N_{\text{ox-pairs},i} = \min(\lfloor \text{bulls}_i / 2 \rfloor, 3)$, $P_{\text{ox,pair}} \sim \mathcal{N}(0.75, 0.04^2)\ \text{kW}$, $\eta_{\text{ox}} = 0.70$, and working pairs $N_{\text{ox,working},i} = N_{\text{ox-pairs},i} - \text{Binomial}(N_{\text{ox-pairs},i}, p_{\text{broken,ox}})$ with $p_{\text{broken,ox}} = 0.06$.
+$$
+P_{\text{hum},i} = N_{\text{labor},i} \cdot \bar{P}_{\text{hum}} \cdot \eta_{\text{hum}} \tag{2}
+$$
 
-3. **Privately Owned Mechanical Power ($P_{\text{mech,own},i}$):**
-   $$P_{\text{mech,own},i} = \sum_{m \in \{4\text{WT}, 2\text{WT}\}} N_{m,\text{working},i} \times P_{\text{rated},m} \times \eta_{m}$$
-   with rated power priors and operational breakdown rates ($p_{\text{broken}}$):
-   - **Four-Wheel Tractor (4WT):** $P_{\text{rated},4\text{WT}} \sim \mathcal{U}(35.0, 60.0)\ \text{kW}$ ($\mathbb{E}[P] = 47.5\ \text{kW}$); $\eta_{4\text{WT}} = 0.72$; $p_{\text{broken},4\text{WT}} = 0.22$.
-   - **Two-Wheel Tractor (2WT):** $P_{\text{rated},2\text{WT}} \sim \mathcal{U}(7.5, 11.0)\ \text{kW}$ ($\mathbb{E}[P] = 9.25\ \text{kW}$); $\eta_{2\text{WT}} = 0.68$; $p_{\text{broken},2\text{WT}} = 0.28$.
+where $N_{\text{labor},i} \ge 1$ is the count of working-age household members (15–64 years) active in agriculture, $\bar{P}_{\text{hum}} = 0.075\ \text{kW}$, and $\eta_{\text{hum}} = 0.85$.
 
-4. **Commercial Custom-Hired Services ($P_{\text{mech,hire},i}$):**
-   $$P_{\text{mech,hire},i} = \sum_{m \in \{4\text{WT}, 2\text{WT}, \text{ox}\}} \mathbb{I}_{\text{hire},m,i} \times P_{\text{rated},m} \times \phi_{m}$$
-   where $\phi_{m}$ is the fractional power allocation representing service rationing, road transit time, and queueing during synchronized planting dates ($\phi_{4\text{WT}} = 0.15$, $\phi_{2\text{WT}} = 0.22$, $\phi_{\text{ox}} = 0.30$).
+#### Draught Animal Power ($P_{\text{ox},i}^{(s)}$)
+
+$$
+P_{\text{ox},i}^{(s)} = N_{\text{ox,working},i} \cdot P_{\text{ox}}^{(s)} \cdot \eta_{\text{ox}} \tag{3}
+$$
+
+where $N_{\text{ox-pairs},i} = \min(\lfloor \text{bulls}_i / 2 \rfloor, 3)$, $P_{\text{ox}}^{(s)} \sim \mathcal{N}(0.75, 0.04^2)\ \text{kW}$, $\eta_{\text{ox}} = 0.70$, and working pairs $N_{\text{ox,working},i} = N_{\text{ox-pairs},i} - \text{Binomial}(N_{\text{ox-pairs},i}, p_{\text{broken,ox}})$ with $p_{\text{broken,ox}} = 0.06$.
+
+#### Privately Owned Mechanical Power ($P_{\text{mech,own},i}^{(s)}$)
+
+$$
+P_{\text{mech,own},i}^{(s)} = \sum_{m \in \{\text{4WT},\, \text{2WT}\}} N_{m,\text{working},i} \cdot P_{m}^{(s)} \cdot \eta_{m} \tag{4}
+$$
+
+with stochastic rated power draws, tractive efficiencies ($\eta_m$), and breakdown rates ($p_{\text{broken},m}$):
+- **Four-Wheel Tractor (4WT):** $P_{\text{4WT}}^{(s)} \sim \mathcal{U}(35.0, 60.0)\ \text{kW}$ ($\mathbb{E}[P] = 47.5\ \text{kW}$), $\eta_{\text{4WT}} = 0.72$, $p_{\text{broken,4WT}} = 0.22$.
+- **Two-Wheel Tractor (2WT):** $P_{\text{2WT}}^{(s)} \sim \mathcal{U}(7.5, 11.0)\ \text{kW}$ ($\mathbb{E}[P] = 9.25\ \text{kW}$), $\eta_{\text{2WT}} = 0.68$, $p_{\text{broken,2WT}} = 0.28$.
+
+#### Commercial Custom-Hired Services ($P_{\text{mech,hire},i}^{(s)}$)
+
+$$
+P_{\text{mech,hire},i}^{(s)} = \sum_{m \in \{\text{4WT},\, \text{2WT},\, \text{ox}\}} \mathbb{I}_{\text{hire},m,i} \cdot P_{m}^{(s)} \cdot \phi_{m} \tag{5}
+$$
+
+where $\phi_{m}$ is the fractional power allocation capturing service rationing, road transit time, and queuing delays during synchronized planting windows ($\phi_{\text{4WT}} = 0.15$, $\phi_{\text{2WT}} = 0.22$, $\phi_{\text{ox}} = 0.30$).
+
+#### Machinery Reliability Degradation Index (MRDI)
+
+For each owned power tier $m \in \{\text{4WT}, \text{2WT}, \text{ox}\}$ with $N_{m,i} > 0$, operational readiness is measured as:
+
+$$
+\text{MRDI}_{m,i} = \frac{N_{m,\text{working},i}}{N_{m,i}} \in [0, 1] \tag{6}
+$$
 
 ---
 
 ### 2. Edaphic Draft Resistance & Specific Tillage Deficit
 
-Following **ASABE Standards D497.7 / EP496.3**, holdings are assigned to one of three edaphic draft regimes via a crop-by-region classification rule, with unit soil draft resistance $R_{\text{draft}} \sim \mathcal{U}(R_{\min}, R_{\max})\ \text{kN}\cdot\text{m}^{-2}$ and specific power requirement $P_{\text{req}}$:
+Following **ASABE Standards D497.7 / EP496.3**, holdings are assigned to one of three edaphic draft regimes via a crop-by-region classification rule, with unit soil draft resistance $R_{\text{draft},i} \sim \mathcal{U}(R_{\min}, R_{\max})\ \text{kN}\cdot\text{m}^{-2}$ and specific power requirement $P_{\text{req},i}$:
 
 | Regime | Soil Typology | Draft Resistance $R_{\text{draft}}$ ($\text{kN}\cdot\text{m}^{-2}$) | Required Power $P_{\text{req}}$ ($\text{kW}\cdot\text{ha}^{-1}$) |
 |:---|:---|:---|:---|
@@ -102,35 +127,53 @@ Following **ASABE Standards D497.7 / EP496.3**, holdings are assigned to one of 
 
 The holding-level **Specific Engineering Power Deficit** ($\text{kW}\cdot\text{ha}^{-1}$) is:
 
-$$\text{Deficit}_i = \max\left(0,\, P_{\text{req},i} - \overline{\text{EPD}}_i\right)$$
+$$
+\text{Deficit}_i = \max\Big(0,\; P_{\text{req},i} - \overline{\text{EPD}}_i\Big) \tag{7}
+$$
+
+where $\overline{\text{EPD}}_i = \frac{1}{1000}\sum_{s=1}^{1000} \text{EPD}_i^{(s)}$ is the posterior mean Effective Power Density.
 
 ---
 
-### 3. Area Survival Ratio ($\text{ASR}$) and Timeliness Bottlenecks
+### 3. Area Survival Ratio (ASR) and Timeliness Bottlenecks
 
 The Area Survival Ratio measures the proportion of planted area successfully brought to harvest:
 
-$$\text{ASR}_{i,s} = \operatorname{clip}\left(\frac{\text{Area Harvested}_{i,s}}{\text{Area Planted}_{i,s}},\, 0,\, 1\right) \in [0, 1]$$
+$$
+\text{ASR}_{i,s} = \min\!\left(\max\!\left(\frac{\text{Area Harvested}_{i,s}}{\text{Area Planted}_{i,s}},\; 0\right),\; 1\right) \in [0, 1] \tag{8}
+$$
 
-where $s \in \{\text{Masika}, \text{Vuli}, \text{Pooled}\}$ denotes the agricultural season. Inadequate power capacity forces protracted tillage beyond optimal soil moisture windows, inducing poor seedbed quality, late germination, weed infestation, and seasonal crop abandonment.
+where $s \in \{\text{Masika}, \text{Vuli}, \text{Pooled}\}$ denotes the cropping season. Inadequate power capacity forces protracted tillage beyond optimal soil moisture windows, inducing poor seedbed quality, late germination, weed infestation, and seasonal crop abandonment.
 
 ---
 
 ### 4. Microeconometric Validation Suite
 
-1. **Deaton (1985) Synthetic Pseudo-Panel Fixed Effects:**  
-   Constructs synthetic cohorts $c$ defined by $\text{Region (31)} \times \text{Farm Size Tier (4)} \times \text{Edaphic Draft Regime (3)}$, retaining cohort-wave cells with $n_{ct} \ge 10$ ($N = 379$ cohort-wave observations). Estimated via Weighted Least Squares (WLS) weighted by $\sqrt{n_{ct}} \cdot \tilde{w}_{ct}$:
-   $$\overline{\text{ASR}}_{ct} = \alpha_c + \beta_1 \overline{\text{EPD}}_{ct} + \beta_2 (\overline{\text{EPD}}_{ct} \times \bar{R}_{\text{draft},c}/100) + \mathbf{X}_{ct}'\boldsymbol{\gamma} + \delta_t + \bar{\varepsilon}_{ct}$$
+#### Deaton (1985) Synthetic Pseudo-Panel Fixed Effects
 
-2. **Papke-Wooldridge (1996) Fractional Logit GLM:**  
-   Addresses the bounded nature of $\text{ASR} \in [0, 1]$ with standard errors clustered by $\text{Region} \times \text{Wave}$:
-   $$\mathbb{E}[\text{ASR}_i \mid \mathbf{X}_i] = \Lambda\left(\beta_0 + \beta_1 \text{EPD}_i + \beta_2 (\text{EPD}_i \times \text{Vertisol}_i) + \mathbf{X}_i'\boldsymbol{\gamma}\right)$$
+Synthetic cohorts $c$ are defined by $\text{Region (31)} \times \text{Farm Size Tier (4)} \times \text{Edaphic Draft Regime (3)}$, retaining cohort-wave cells with $n_{ct} \ge 10$ ($N = 379$ cohort-wave observations). Models are estimated via Weighted Least Squares (WLS) with weights $w_{ct}^{\text{Deaton}} = \sqrt{n_{ct}} \cdot (W_{ct} / \bar{W})$:
 
-3. **Mundlak (1978) Correlated Random Effects (CRE):**  
-   Includes cohort-level means of time-varying covariates ($\text{EPD}$, 2WT/4WT shares, MRDI, $\ln(\text{area})$) in the fractional logit specification to control for unobserved cohort heterogeneity.
+$$
+\overline{\text{ASR}}_{ct} = \alpha_c + \delta_t + \beta_1 \overline{\text{EPD}}_{ct} + \beta_2 \left(\overline{\text{EPD}}_{ct} \cdot \frac{\bar{R}_{\text{draft},ct}}{100}\right) + \mathbf{X}_{ct}'\boldsymbol{\gamma} + \bar{\varepsilon}_{ct} \tag{9}
+$$
 
-4. **Hansen (2000) Non-Linear Threshold Estimation:**  
-   Grid-searches $\gamma \in [0.20, 2.50]\ \text{kW}\cdot\text{ha}^{-1}$ (47 points) using piecewise linear splines $(x_{\text{below}}, x_{\text{above}})$ stratified across the 3 edaphic regimes to identify the tipping point $\gamma^* = \arg\max_\gamma R^2(\gamma)$.
+#### Papke–Wooldridge (1996) Fractional Logit GLM & Mundlak (1978) CRE
+
+To respect the bounded support $\text{ASR}_i \in [0, 1]$ with standard errors clustered by $\text{Region} \times \text{Wave}$, conditional expectations are modeled via a logit link $\Lambda(z) = (1 + e^{-z})^{-1}$:
+
+$$
+\mathbb{E}\!\left[\text{ASR}_i \mid \mathbf{X}_i\right] = \Lambda\!\Big(\beta_0 + \beta_1 \text{EPD}_i + \beta_2 (\text{EPD}_i \cdot \text{Vertisol}_i) + \beta_3 (\text{EPD}_i \cdot \text{Loam}_i) + \mathbf{X}_i'\boldsymbol{\gamma} + \overline{\mathbf{Z}}_c'\boldsymbol{\pi}\Big) \tag{10}
+$$
+
+where $\overline{\mathbf{Z}}_c$ denotes the cohort-level Mundlak means of time-varying covariates ($\text{EPD}$, 2WT/4WT power shares, MRDI, and $\ln A_{\text{eff}}$), omitted in the baseline fractional logit and included in the Mundlak CRE specification.
+
+#### Hansen (2000) Non-Linear Threshold Estimation
+
+For each edaphic draft regime $g \in \{1, 2, 3\}$, a piecewise linear spline is estimated over a 47-point grid $\gamma \in [0.20, 2.50]\ \text{kW}\cdot\text{ha}^{-1}$:
+
+$$
+\text{ASR}_i = \alpha_0 + \beta_1 \min(\text{EPD}_i, \gamma) + \beta_2 \max(0,\, \text{EPD}_i - \gamma) + \mathbf{X}_i'\boldsymbol{\gamma}_x + u_i, \qquad \gamma_g^* = \arg\max_{\gamma} R^2_g(\gamma) \tag{11}
+$$
 
 ---
 
